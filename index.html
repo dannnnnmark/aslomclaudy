@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html lang="en"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>⚠️ IMPORTANT NOTICE ⚠️</title>
+<style>
+:root{--bg:#0d0d12;--fg:#fff;--pink:#ff4d79;--red:#ff2e4d;--card:#1a1a24;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+html{scroll-padding-top:env(safe-area-inset-top,0px)}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--fg);font-family:system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;min-height:100vh;display:flex;align-items:center;justify-content:center;text-align:center;overflow-x:hidden}
+.screen{display:none;width:100%;max-width:480px;padding:24px;animation:in .5s ease}
+.screen.on{display:block}
+@keyframes in{from{opacity:0;transform:translateY(14px)}to{opacity:1;transform:none}}
+h1{font-size:2rem;margin:.2em 0}
+h2{font-size:1.6rem;margin:.4em 0}
+p{font-size:1.1rem;line-height:1.5}
+.btn{background:var(--pink);color:#fff;border:0;border-radius:12px;padding:14px 22px;font-size:1rem;font-weight:700;cursor:pointer;margin:8px;transition:transform .15s,box-shadow .15s;box-shadow:0 0 18px #ff4d7966}
+.btn:hover{transform:scale(1.06)}.btn:active{transform:scale(.96)}
+.btn.ghost{background:transparent;border:2px solid #555;box-shadow:none;color:#bbb}
+.glitch{position:relative;display:inline-block;animation:gl 2.5s infinite}
+.glitch::before,.glitch::after{content:attr(data-t);position:absolute;left:0;top:0;width:100%;overflow:hidden}
+.glitch::before{color:#0ff;transform:translate(-2px,0);clip-path:inset(0 0 60% 0);animation:gl2 1.7s infinite}
+.glitch::after{color:var(--red);transform:translate(2px,0);clip-path:inset(55% 0 0 0);animation:gl2 2.1s infinite reverse}
+@keyframes gl{0%,92%,100%{transform:none}94%{transform:skew(8deg)}96%{transform:skew(-8deg) translateX(3px)}}
+@keyframes gl2{0%,90%,100%{transform:translate(0)}93%{transform:translate(-4px,2px)}96%{transform:translate(4px,-2px)}}
+.shake{animation:shake .5s infinite;color:var(--pink);font-size:2.1rem;font-weight:900}
+@keyframes shake{0%,100%{transform:rotate(0)}25%{transform:translate(-6px,2px) rotate(-3deg)}75%{transform:translate(6px,-2px) rotate(3deg)}}
+.bar{height:12px;background:#2a2a38;border-radius:99px;overflow:hidden;margin:16px 0}
+.bar i{display:block;height:100%;width:0;background:linear-gradient(90deg,var(--pink),var(--red));transition:width .5s}
+#log{text-align:left;font-family:ui-monospace,Menlo,monospace;color:#9fe;min-height:110px;font-size:.95rem}
+.line{opacity:0;animation:in .4s forwards;margin:3px 0}
+.card{background:var(--card);border:2px dashed var(--pink);border-radius:18px;padding:22px;text-align:left}
+.card h3{text-align:center;margin:0 0 12px}
+.card li{list-style:none;padding:6px 0;font-size:1.05rem}
+.card ul{padding:0;margin:0}
+.photo{width:120px;height:120px;border-radius:50%;object-fit:cover;border:3px solid var(--pink);display:block;margin:0 auto 12px}
+.toast{position:fixed;top:calc(12px + env(safe-area-inset-top,0px));left:50%;transform:translate(-50%,-150%);background:#262634;border:1px solid #444;border-radius:12px;padding:10px 16px;font-size:.9rem;transition:transform .4s;z-index:50;max-width:92%}
+.toast.show{transform:translate(-50%,0)}
+.modal{position:fixed;inset:0;background:#000a;display:none;align-items:center;justify-content:center;z-index:40}
+.modal.on{display:flex}
+.modal div{background:#222;border:2px solid var(--red);border-radius:14px;padding:26px 30px;max-width:300px}
+.modal h2{color:var(--red);margin:0}
+.float{position:fixed;bottom:-40px;font-size:2rem;pointer-events:none;animation:up 4s linear forwards;z-index:5}
+@keyframes up{to{transform:translateY(-110vh) rotate(40deg);opacity:0}}
+canvas{position:fixed;inset:0;pointer-events:none;z-index:30}
+#dodge{position:relative}
+.hide{display:none}
+</style></head><body>
+<div class="toast" id="toast"></div>
+<canvas id="cv"></canvas>
+<div class="modal" id="modal"><div><h2 id="mt">ERROR 404</h2><p id="mp">Boyfriend not found.</p></div></div>
+
+<!-- 1 notice -->
+<section class="screen on" id="s1">
+  <h1><span class="glitch" data-t="⚠️ IMPORTANT NOTICE ⚠️">⚠️ IMPORTANT NOTICE ⚠️</span></h1>
+  <p>Please read this carefully.</p>
+  <p><b>This message requires your immediate attention.</b></p>
+  <button class="btn" onclick="go('s2')">CLICK TO CONTINUE</button><br>
+  <button class="btn ghost" id="dodge">I DON'T WANT TO KNOW</button>
+</section>
+
+<!-- 2 ready chain -->
+<section class="screen" id="s2">
+  <h2 id="q">Ready?</h2>
+  <button class="btn" id="yes">CLICK IF YOU'RE READY</button>
+</section>
+
+<!-- 3 loading -->
+<section class="screen" id="s3">
+  <h2>⏳ Loading...</h2>
+  <div id="log"></div>
+  <div class="bar"><i id="fill"></i></div>
+  <p id="pct">Loading monthsary greeting... 0%</p>
+  <div id="done" class="hide">
+    <p><b>Analysis complete.</b></p>
+    <button class="btn" onclick="results()">VIEW RESULTS</button>
+  </div>
+</section>
+
+<!-- 4 results -->
+<section class="screen" id="s4">
+  <div id="res"></div>
+  <button class="btn hide" id="toReport" onclick="go('s5')">SEE REPORT 📋</button>
+</section>
+
+<!-- 5 card -->
+<section class="screen" id="s5">
+  <div class="card">
+    <img class="photo hide" id="photo" alt="">
+    <h3>📋 MONTHLY GIRLFRIEND REPORT</h3>
+    <p style="margin:0 0 8px;text-align:center;color:#aaa;font-size:.9rem">Month #<span id="mnum"></span> · Subject: <span class="n1"></span></p>
+    <ul>
+      <li>✅ Still Mine</li><li>✅ Still gorgeous</li><li>✅ Still <span class="nick"></span></li>
+      <li>✅ Still Loved</li><li>✅ Contract Renewed for Another Month 😂</li>
+    </ul>
+    <p style="font-size:.95rem;color:#ccc">Thank you for choosing to stay. Your subscription has been automatically renewed.</p>
+    <div style="text-align:center"><button class="btn" id="accept">ACCEPT 😂</button>
+    <p id="late" class="hide" style="color:var(--pink);font-weight:700">Too late. You already accepted. 😌❤️</p></div>
+  </div>
+  <button class="btn hide" id="toFinal" onclick="finale()">ONE LAST THING 👀</button>
+</section>
+
+<!-- 6 final -->
+<section class="screen" id="s6">
+  <h1>Aslom ilok 😂</h1>
+  <h2 style="color:var(--pink)">Happy Monthsary, babyy! ❤️</h2>
+  <p>Another month with you. That's it. No dramatic speech. 😂</p>
+  <p>Enjoy your day, <span class="nick"></span>. ❤️</p>
+  <h2><span class="n1"></span> ❤️ <span class="me"></span></h2>
+</section>
+
+<script>
+/* ===== EASY CONFIG — change these ===== */
+const CONFIG = {
+  boyfriendName: "Aslom Claudette",
+  yourName: "Dan",
+  months: 9999999,          // which monthsary number is it?
+  nickname: "Aslom ilok",   // shown in the report + final message
+  photo: ""                 // PHOTO: paste an image link or data: URL (leave "" for none)
+};
+/* ======================================= */
+const $=id=>document.getElementById(id), sleep=ms=>new Promise(r=>setTimeout(r,ms));
+document.querySelectorAll('.n1').forEach(e=>e.textContent=CONFIG.boyfriendName);
+document.querySelectorAll('.nick').forEach(e=>e.textContent=CONFIG.nickname);
+document.querySelectorAll('.me').forEach(e=>e.textContent=CONFIG.yourName);
+$('mnum').textContent=CONFIG.months;
+if(CONFIG.photo){$('photo').src=CONFIG.photo;$('photo').classList.remove('hide')}
+function go(id){document.querySelectorAll('.screen').forEach(s=>s.classList.remove('on'));$(id).classList.add('on')}
+function toast(t,ms=2500){const e=$('toast');e.textContent=t;e.classList.add('show');setTimeout(()=>e.classList.remove('show'),ms)}
+function floaters(list,n=18){for(let i=0;i<n;i++){const f=document.createElement('div');f.className='float';f.textContent=list[i%list.length];f.style.left=Math.random()*95+'vw';f.style.animationDelay=Math.random()*1.5+'s';document.body.appendChild(f);setTimeout(()=>f.remove(),6000)}}
+
+// dodge button
+const d=$('dodge');let moves=0;
+d.addEventListener('click',()=>{moves++;toast('Too bad 😂');d.style.left=(Math.random()*120-60)+'px';d.style.top=(Math.random()*60-30)+'px'});
+d.addEventListener('mouseover',()=>{d.style.left=(Math.random()*120-60)+'px';d.style.top=(Math.random()*60-30)+'px'});
+
+// ready chain
+const steps=[["Ready?","CLICK IF YOU'RE READY"],["Are you sure?","YES"],["Like... REALLY sure?","YES 😭"]];let si=0;
+$('yes').onclick=()=>{si++;if(si<steps.length){$('q').textContent=steps[si][0];$('yes').textContent=steps[si][1]}else{go('s3');load()}};
+
+// loading
+async function load(){
+  const msgs=["Analyzing your relationship status...","Checking boyfriend records...","Calculating months together...","Please wait..."];
+  const pcts=[7,42,99,100];
+  for(let i=0;i<4;i++){
+    const l=document.createElement('div');l.className='line';l.textContent='> '+msgs[i];$('log').appendChild(l);
+    await sleep(900);
+    $('fill').style.width=pcts[i]+'%';$('pct').textContent='Loading monthsary greeting... '+pcts[i]+'%';
+    await sleep(700);
+  }
+  $('pct').textContent='Successfully loaded boyfriend appreciation. ❤️';
+  toast('🔔 System: suspicious amount of love detected');
+  await sleep(1200);$('done').classList.remove('hide');
+}
+
+// results
+async function results(){
+  go('s4');const r=$('res');
+  const add=(h,ms=1600)=>{r.insertAdjacentHTML('beforeend',h);return sleep(ms)};
+  await add('<h1>Congratulations! 🎉</h1>');
+  await add('<p>You have successfully survived another month with me.</p>');
+  await add('<h2>Unfortunately...</h2>',2400);
+  await add('<div class="shake">YOU\'RE STILL STUCK WITH ME. 😭😂</div>',300);
+  floaters(['😂','😭','🤣','💀','❤️']);
+  await sleep(2500);
+  await add(`<h1 style="color:var(--pink)">Happy Monthsary, ${CONFIG.boyfriendName}! ❤️</h1>`,1800);
+  // fake error
+  $('mt').textContent='ERROR 404';$('mp').textContent='Boyfriend not found.';$('modal').classList.add('on');
+  await sleep(2000);
+  $('mt').textContent='Wait...';$('mp').textContent="Never mind. He's right here. 😂❤️";
+  await sleep(2200);$('modal').classList.remove('on');
+  $('toReport').classList.remove('hide');
+}
+
+// card
+$('accept').onclick=()=>{$('accept').classList.add('hide');$('late').classList.remove('hide');floaters(['😌','❤️','😂'],10);setTimeout(()=>$('toFinal').classList.remove('hide'),1200)};
+
+// finale
+function finale(){go('s6');confetti();floaters(['❤️','💖','😂','🎉'],24);setInterval(()=>{confetti(60);floaters(['❤️','💗'],6)},5000)}
+const cv=$('cv'),cx=cv.getContext('2d');let P=[];
+function size(){cv.width=innerWidth;cv.height=innerHeight}size();addEventListener('resize',size);
+function confetti(n=160){const c=['#ff4d79','#ff2e4d','#fff','#ffd1dc','#ffb703'];for(let i=0;i<n;i++)P.push({x:Math.random()*cv.width,y:-20-Math.random()*cv.height*.4,vx:Math.random()*4-2,vy:Math.random()*3+2,s:Math.random()*8+4,c:c[i%c.length],r:Math.random()*6});if(P.length===n)loop()}
+function loop(){cx.clearRect(0,0,cv.width,cv.height);P.forEach(p=>{p.x+=p.vx;p.y+=p.vy;p.r+=.1;cx.fillStyle=p.c;cx.save();cx.translate(p.x,p.y);cx.rotate(p.r);cx.fillRect(-p.s/2,-p.s/2,p.s,p.s*.6);cx.restore()});P=P.filter(p=>p.y<cv.height+20);if(P.length)requestAnimationFrame(loop)}
+</script>
+</body></html>
